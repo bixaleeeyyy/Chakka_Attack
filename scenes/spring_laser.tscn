@@ -1,0 +1,35 @@
+[gd_scene load_steps=4 format=3 uid="uid://bu564njbvvmqb"]
+
+[ext_resource type="Script" uid="uid://cbp3ppwkb0yqk" path="res://scenes/spring_laser.gd" id="1_54gju"]
+[ext_resource type="Texture2D" uid="uid://c22cyg2rxa5sl" path="res://art-and-sound/kenney_space-shooter-redux/PNG/Lasers/laserRed05.png" id="2_gk2w5"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_apuwp"]
+radius = 2.0
+height = 38.0
+
+[node name="SpringLaser" type="CharacterBody2D"]
+position = Vector2(-4, 1108)
+collision_mask = 0
+motion_mode = 1
+platform_on_leave = 2
+platform_floor_layers = 4294967292
+script = ExtResource("1_54gju")
+metadata/_edit_group_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+unique_name_in_owner = true
+texture = ExtResource("2_gk2w5")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+unique_name_in_owner = true
+shape = SubResource("CapsuleShape2D_apuwp")
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
+amount = 4
+lifetime = 0.2
+randomness = 1.0
+lifetime_randomness = 0.2
+direction = Vector2(0, 1)
+gravity = Vector2(0, 0)
+initial_velocity_min = 68.98
+initial_velocity_max = 155.08

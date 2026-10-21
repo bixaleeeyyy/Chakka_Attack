@@ -1,0 +1,167 @@
+[gd_scene load_steps=10 format=3 uid="uid://dwik1k1a4d85w"]
+
+[ext_resource type="Script" uid="uid://c62qyhl2ngsj3" path="res://scenes/settings.gd" id="1_ch03l"]
+[ext_resource type="Texture2D" uid="uid://c33xrciyt6ilb" path="res://art-and-sound/bg_1_1.png" id="1_l14kl"]
+[ext_resource type="LabelSettings" uid="uid://cnoygoxh0kgme" path="res://resources/small_textstyle.tres" id="2_sy1r1"]
+[ext_resource type="LabelSettings" uid="uid://bj4owgofe5ayt" path="res://resources/textstyle.tres" id="3_38bei"]
+[ext_resource type="Theme" uid="uid://vdypn6ym62cq" path="res://scenes/main-theme.tres" id="4_w4twb"]
+[ext_resource type="Texture2D" uid="uid://iqxgljh1hu37" path="res://art-and-sound/backarrow.png" id="4_wxjj8"]
+[ext_resource type="AudioStream" uid="uid://27gsi8730ljb" path="res://art-and-sound/menu_click_sound.ogg" id="7_eoiia"]
+
+[sub_resource type="InputEventKey" id="InputEventKey_dg25f"]
+device = -1
+keycode = 4194305
+
+[sub_resource type="Shortcut" id="Shortcut_ksu4j"]
+events = [SubResource("InputEventKey_dg25f")]
+
+[node name="Settings" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("4_w4twb")
+script = ExtResource("1_ch03l")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 0
+offset_right = 648.0
+offset_bottom = 1152.0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("1_l14kl")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -137.0
+offset_right = 137.0
+offset_bottom = 121.0
+grow_horizontal = 2
+
+[node name="Label" type="Label" parent="MarginContainer"]
+layout_mode = 2
+text = "GAME_SETTINGS_LABEL"
+label_settings = ExtResource("3_38bei")
+horizontal_alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 0
+offset_top = 210.0
+offset_right = 648.0
+offset_bottom = 802.0
+theme_override_constants/separation = 40
+
+[node name="SoundEffectsButton" type="CheckButton" parent="VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme = ExtResource("4_w4twb")
+text = "CREDITS_SFX"
+alignment = 1
+
+[node name="MusicButton" type="CheckButton" parent="VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("4_w4twb")
+text = "MENU_LABEL_MUSIC"
+alignment = 1
+
+[node name="JoystickButton" type="CheckButton" parent="VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("4_w4twb")
+text = "HUD_JOYSTICK_VISIBILITY"
+alignment = 1
+
+[node name="FireTouchButton" type="CheckButton" parent="VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("4_w4twb")
+text = "HUD_FIRE_BUTTON_VISIBILITY"
+alignment = 1
+
+[node name="AndroidAutomoveButton" type="CheckButton" parent="VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("4_w4twb")
+text = "MENU_OPTIONS_USE_ALT_CONTROLS"
+alignment = 1
+autowrap_mode = 3
+
+[node name="FullscreenButton" type="CheckButton" parent="VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("4_w4twb")
+text = "MENU_OPTIONS_FULLSCREEN"
+alignment = 1
+autowrap_mode = 3
+
+[node name="HelpButton" type="Button" parent="VBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 90)
+layout_mode = 2
+size_flags_horizontal = 4
+text = "MENU_MODE_HELP"
+
+[node name="VisibilityHintLabel" type="Label" parent="VBoxContainer"]
+custom_minimum_size = Vector2(600, 100)
+layout_mode = 2
+text = "GAME_SETTINGS_BUTTON_VISIBILITY_HINT"
+label_settings = ExtResource("2_sy1r1")
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="BackButton" type="Button" parent="."]
+layout_direction = 2
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -156.0
+offset_top = -159.0
+offset_right = 100.0
+offset_bottom = 97.0
+grow_horizontal = 0
+grow_vertical = 0
+scale = Vector2(0.61, 0.61)
+tooltip_text = "Escape"
+shortcut = SubResource("Shortcut_ksu4j")
+icon = ExtResource("4_wxjj8")
+
+[node name="TextSize" type="Label" parent="."]
+visible = false
+layout_mode = 2
+offset_top = 272.0
+offset_right = 648.0
+offset_bottom = 299.0
+text = "Text size:                 "
+label_settings = ExtResource("2_sy1r1")
+horizontal_alignment = 1
+
+[node name="OptionButton" type="OptionButton" parent="TextSize"]
+visible = false
+layout_mode = 2
+offset_left = 355.0
+offset_top = -1.0
+offset_right = 374.0
+offset_bottom = 11.0
+scale = Vector2(2.52, 2.52)
+theme = ExtResource("4_w4twb")
+
+[node name="MenuClickSound" type="AudioStreamPlayer2D" parent="."]
+unique_name_in_owner = true
+stream = ExtResource("7_eoiia")
+volume_db = -11.277
+pitch_scale = 1.4
+bus = &"SoundEffects"
+
+[connection signal="toggled" from="VBoxContainer/SoundEffectsButton" to="." method="_on_sound_effects_button_toggled"]
+[connection signal="toggled" from="VBoxContainer/MusicButton" to="." method="_on_music_button_toggled"]
+[connection signal="toggled" from="VBoxContainer/JoystickButton" to="." method="_on_joystick_button_toggled"]
+[connection signal="toggled" from="VBoxContainer/FireTouchButton" to="." method="_on_fire_touch_button_toggled"]
+[connection signal="toggled" from="VBoxContainer/AndroidAutomoveButton" to="." method="_on_android_automove_button_toggled"]
+[connection signal="toggled" from="VBoxContainer/FullscreenButton" to="." method="_on_fullscreen_button_toggled"]
+[connection signal="pressed" from="VBoxContainer/HelpButton" to="." method="_on_help_button_pressed"]
+[connection signal="pressed" from="BackButton" to="." method="_on_back_button_pressed"]

@@ -1,0 +1,215 @@
+[gd_scene load_steps=19 format=3 uid="uid://cxi3stw7wrvli"]
+
+[ext_resource type="Script" uid="uid://cv6lgtatphwgd" path="res://scenes/player_rock.gd" id="1_kccwu"]
+[ext_resource type="Texture2D" uid="uid://fv4u676rvcc6" path="res://art-and-sound/kenney_space-shooter-redux/PNG/Meteors/meteorBrown_big1.png" id="2_ctg6k"]
+[ext_resource type="PackedScene" uid="uid://divaw71qkw2lp" path="res://scenes/asteroid_bullet.tscn" id="2_m20jj"]
+[ext_resource type="AudioStream" uid="uid://bdri2e7vh3reo" path="res://art-and-sound/launches/rlaunch.wav" id="3_xgo6l"]
+[ext_resource type="Texture2D" uid="uid://dhatbididhoxk" path="res://art-and-sound/kenney_space-shooter-redux/PNG/Lasers/laserBlue01.png" id="4_nkwj1"]
+[ext_resource type="AudioStream" uid="uid://bccmmcxao62qu" path="res://art-and-sound/launches/iceball.wav" id="5_baikv"]
+
+[sub_resource type="Curve" id="Curve_5mdgw"]
+_data = [Vector2(0, 0.13483155), 0.0, 0.0, 0, 0, Vector2(0.743842, 0.0837275), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_g62k3"]
+curve = SubResource("Curve_5mdgw")
+
+[sub_resource type="Curve" id="Curve_6v2mq"]
+_data = [Vector2(0, 0.956954), 0.0, 0.0, 0, 0, Vector2(0.236453, 0.102176), 0.0, 0.0, 0, 0, Vector2(0.953202, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_yws5e"]
+curve = SubResource("Curve_6v2mq")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_syyn6"]
+particle_flag_disable_z = true
+emission_shape_scale = Vector3(30, 1, 1)
+emission_shape = 3
+emission_box_extents = Vector3(0.66, -7.485, 1)
+direction = Vector3(0, 1, 0)
+spread = 11.111
+initial_velocity_min = 175.0
+initial_velocity_max = 240.0
+gravity = Vector3(0, 0, 0)
+alpha_curve = SubResource("CurveTexture_g62k3")
+emission_curve = SubResource("CurveTexture_yws5e")
+hue_variation_min = 0.1
+hue_variation_max = 0.18
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_4pdcd"]
+radius = 56.0
+
+[sub_resource type="Animation" id="Animation_s6ef7"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimationPlayer:speed_scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [1.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite2D:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_hy6if"]
+resource_name = "fire"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimationPlayer:speed_scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [5.0, 1.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 6.28319]
+}
+
+[sub_resource type="Animation" id="Animation_elrae"]
+resource_name = "hit-effects"
+length = 6.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(),
+"transitions": PackedFloat32Array(),
+"update": 0,
+"values": []
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_4lbyr"]
+_data = {
+&"RESET": SubResource("Animation_s6ef7"),
+&"fire": SubResource("Animation_hy6if"),
+&"hit-effects": SubResource("Animation_elrae")
+}
+
+[sub_resource type="Gradient" id="Gradient_d4ogx"]
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_baikv"]
+gradient = SubResource("Gradient_d4ogx")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0.45, 1)
+
+[node name="PlayerRock" type="CharacterBody2D" groups=["Player"]]
+z_index = 4096
+scale = Vector2(0.85, 0.85)
+collision_layer = 2
+collision_mask = 0
+motion_mode = 1
+script = ExtResource("1_kccwu")
+rock_bullet_scene = ExtResource("2_m20jj")
+metadata/_edit_group_ = true
+
+[node name="MovementParticles" type="GPUParticles2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(0, -1.38)
+scale = Vector2(2.5, 2.4999998)
+amount = 4
+texture = ExtResource("4_nkwj1")
+lifetime = 0.2
+draw_order = 2
+trail_enabled = true
+trail_lifetime = 0.1
+process_material = SubResource("ParticleProcessMaterial_syyn6")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+unique_name_in_owner = true
+scale = Vector2(0.815, 0.84)
+texture = ExtResource("2_ctg6k")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -10)
+shape = SubResource("CircleShape2D_4pdcd")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+
+[node name="DeathSound" type="AudioStreamPlayer2D" parent="."]
+scale = Vector2(1.17647, 1.17647)
+stream = ExtResource("3_xgo6l")
+volume_db = -1.055
+pitch_scale = 0.2
+bus = &"SoundEffects"
+
+[node name="Area2D" type="Area2D" parent="."]
+unique_name_in_owner = true
+collision_layer = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(0, -10)
+shape = SubResource("CircleShape2D_4pdcd")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+unique_name_in_owner = true
+libraries = {
+&"": SubResource("AnimationLibrary_4lbyr")
+}
+
+[node name="InvincibilityTimer" type="Timer" parent="."]
+unique_name_in_owner = true
+wait_time = 5.0
+one_shot = true
+
+[node name="SpawnSound" type="AudioStreamPlayer2D" parent="."]
+unique_name_in_owner = true
+stream = ExtResource("5_baikv")
+volume_db = -3.11
+pitch_scale = 1.44
+autoplay = true
+bus = &"SoundEffects"
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+color = Color(0.999999, 0.471454, 0.459607, 1)
+energy = 2.83
+texture = SubResource("GradientTexture2D_baikv")
+texture_scale = 8.41
+
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="timeout" from="InvincibilityTimer" to="." method="_on_invincibility_timer_timeout"]

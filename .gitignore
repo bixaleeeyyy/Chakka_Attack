@@ -1,0 +1,18 @@
+# Godot 4+ specific ignores
+.godot/
+
+# Other ignores
+/savegame.bin
+exports/
+art-and-sound/zips/
+
+
+# Builds/export directory
+builds/**/*
+!builds/.gdignore
+
+# Imported translations (automatically generated from CSV files)
+locale/.translation
+
+# OSX 
+.DS_Store
